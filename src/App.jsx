@@ -253,12 +253,6 @@ export default function HousingPredictor() {
               </div>
             </div>
           )}
-
-          <div style={styles.noteBox}>
-            <p style={styles.noteText}>
-              <strong>Note:</strong> Make sure your FastAPI server is running on http://localhost:8000
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -409,15 +403,15 @@ const styles = {
     fontSize: '0.875rem',
     color: '#6b7280',
   },
-  noteBox: {
-    marginTop: '2rem',
-    padding: '1rem',
-    backgroundColor: '#f9fafb',
-    borderRadius: '8px',
-  },
-  noteText: {
-    fontSize: '0.875rem',
-    color: '#6b7280',
-    textAlign: 'center',
-  },
+  // noteBox: {
+  //   marginTop: '2rem',
+  //   padding: '1rem',
+  //   backgroundColor: '#f9fafb',
+  //   borderRadius: '8px',
+  // },
+  // noteText: {
+  //   fontSize: '0.875rem',
+  //   color: '#6b7280',
+  //   textAlign: 'center',
+  // },
 };
