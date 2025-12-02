@@ -40,7 +40,7 @@ export default function HousingPredictor() {
       });
       
       if (!response.ok) {
-        throw new Error('Ey! Prediction failed!');
+        throw new Error('Prediction failed!');
       }
       
       const data = await response.json();
@@ -87,7 +87,7 @@ export default function HousingPredictor() {
               <Home size={40} style={styles.icon} />
               California Housing Price Predictor
             </h1>
-            <p style={styles.subtitle}>Ey! Enter the details and we'll tell ya what it's worth!</p>
+            <p style={styles.subtitle}>Ey! Enter the details and we'll tell you what it's worth!</p>
           </div>
 
           <div style={styles.formContainer}>
@@ -242,13 +242,13 @@ export default function HousingPredictor() {
               <div style={styles.predictionContent}>
                 <p style={styles.predictionLabel}>Predicted House Value:</p>
                 <p style={styles.predictionValue}>
-                  ${(prediction * 100000).toLocaleString('en-US', { 
+                  ${(prediction / 100).toLocaleString('en-US', { 
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2 
                   })}
                 </p>
                 <p style={styles.predictionNote}>
-                  (Model output: {prediction.toFixed(4)} × 100,000)
+                  (Model output: {prediction.toFixed(4)} / 100,000)
                 </p>
               </div>
             </div>
@@ -353,7 +353,8 @@ const styles = {
     fontSize: '1rem',
     transition: 'all 0.2s',
     outline: 'none',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: '#2b2a33'
   },
   button: {
     width: '100%',
