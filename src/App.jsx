@@ -83,14 +83,14 @@ export default function HousingPredictor() {
         <div style={styles.container}></div>
       </div> */}
       <div style={styles.container}>
-        <h1 style={styles.title}>
-                <Home size={40} style={styles.icon} />
-                California Housing Price Predictor
-              </h1>
+        
         <div style={styles.wrapper}>
           <div style={styles.card}>
             <div style={styles.header}>
-              
+              <h1 style={styles.title}>
+                <Home size={40} style={styles.icon} />
+                California Housing Price Predictor
+              </h1>
               <p style={styles.subtitle}>Enter the details and we'll tell you what it's worth!</p>
             </div>
 
