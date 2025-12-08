@@ -31,7 +31,7 @@ export default function HousingPredictor() {
     setError(null);
     
     try {
-      const response = await fetch('https://california-house-sale-fastapi.onrender.com/predict_single', {
+      const response = await fetch('https://california-house-price-prediction-038p.onrender.com//predict_single', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,184 +78,188 @@ export default function HousingPredictor() {
             sans-serif;
         }
       `}</style>
+      <div style={styles.body}
+      >
+        <div style={styles.container}><h1 style={styles.title}>
+                <Home size={40} style={styles.icon} />
+                California Housing Price Predictor
+              </h1></div>
+      </div>
       <div style={styles.container}>
-      
-      <div style={styles.wrapper}>
-        <div style={styles.card}>
-          <div style={styles.header}>
-            <h1 style={styles.title}>
-              <Home size={40} style={styles.icon} />
-              California Housing Price Predictor
-            </h1>
-            <p style={styles.subtitle}>Ey! Enter the details and we'll tell you what it's worth!</p>
+        
+        <div style={styles.wrapper}>
+          <div style={styles.card}>
+            <div style={styles.header}>
+              
+              <p style={styles.subtitle}>Enter the details and we'll tell you what it's worth!</p>
+            </div>
+
+            <div style={styles.formContainer}>
+              <div style={styles.grid}>
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <MapPin size={16} style={styles.labelIcon} />
+                    Longitude
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={formData.longitude}
+                    onChange={(e) => handleChange('longitude', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <MapPin size={16} style={styles.labelIcon} />
+                    Latitude
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={formData.latitude}
+                    onChange={(e) => handleChange('latitude', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <Building size={16} style={styles.labelIcon} />
+                    Housing Median Age
+                  </label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={formData.housing_median_age}
+                    onChange={(e) => handleChange('housing_median_age', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <Building size={16} style={styles.labelIcon} />
+                    Total Rooms
+                  </label>
+                  <input
+                    type="number"
+                    step="1"
+                    value={formData.total_rooms}
+                    onChange={(e) => handleChange('total_rooms', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <Bed size={16} style={styles.labelIcon} />
+                    Total Bedrooms
+                  </label>
+                  <input
+                    type="number"
+                    step="1"
+                    value={formData.total_bedrooms}
+                    onChange={(e) => handleChange('total_bedrooms', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <Users size={16} style={styles.labelIcon} />
+                    Population
+                  </label>
+                  <input
+                    type="number"
+                    step="1"
+                    value={formData.population}
+                    onChange={(e) => handleChange('population', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <Home size={16} style={styles.labelIcon} />
+                    Households
+                  </label>
+                  <input
+                    type="number"
+                    step="1"
+                    value={formData.households}
+                    onChange={(e) => handleChange('households', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroup}>
+                  <label style={styles.label}>
+                    <DollarSign size={16} style={styles.labelIcon} />
+                    Median Income
+                  </label>
+                  <input
+                    type="number"
+                    step="0.0001"
+                    value={formData.median_income}
+                    onChange={(e) => handleChange('median_income', e.target.value)}
+                    style={styles.input}
+                  />
+                </div>
+
+                <div style={styles.inputGroupFull}>
+                  <label style={styles.label}>Ocean Proximity</label>
+                  <select
+                    value={formData.ocean_proximity}
+                    onChange={(e) => handleChange('ocean_proximity', e.target.value)}
+                    style={styles.select}
+                  >
+                    {oceanProximityOptions.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                style={{
+                  ...styles.button,
+                  ...(loading ? styles.buttonDisabled : {})
+                }}
+              >
+                {loading ? 'Making Prediction...' : 'Predict Price'}
+              </button>
+            </div>
+
+            {error && (
+              <div style={styles.errorBox}>
+                <p style={styles.errorTitle}>Madone! Error:</p>
+                <p>{error}</p>
+              </div>
+            )}
+
+            {prediction !== null && (
+              <div style={styles.successBox}>
+                <div style={styles.predictionContent}>
+                  <p style={styles.predictionLabel}>Predicted House Value:</p>
+                  <p style={styles.predictionValue}>
+                    ${(prediction / 100).toLocaleString('en-US', { 
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2 
+                    })}
+                  </p>
+                  <p style={styles.predictionNote}>
+                    (Model output: {prediction.toFixed(4)} / 100,000)
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-
-          <div style={styles.formContainer}>
-            <div style={styles.grid}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <MapPin size={16} style={styles.labelIcon} />
-                  Longitude
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={formData.longitude}
-                  onChange={(e) => handleChange('longitude', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <MapPin size={16} style={styles.labelIcon} />
-                  Latitude
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={formData.latitude}
-                  onChange={(e) => handleChange('latitude', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <Building size={16} style={styles.labelIcon} />
-                  Housing Median Age
-                </label>
-                <input
-                  type="number"
-                  step="0.1"
-                  value={formData.housing_median_age}
-                  onChange={(e) => handleChange('housing_median_age', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <Building size={16} style={styles.labelIcon} />
-                  Total Rooms
-                </label>
-                <input
-                  type="number"
-                  step="1"
-                  value={formData.total_rooms}
-                  onChange={(e) => handleChange('total_rooms', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <Bed size={16} style={styles.labelIcon} />
-                  Total Bedrooms
-                </label>
-                <input
-                  type="number"
-                  step="1"
-                  value={formData.total_bedrooms}
-                  onChange={(e) => handleChange('total_bedrooms', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <Users size={16} style={styles.labelIcon} />
-                  Population
-                </label>
-                <input
-                  type="number"
-                  step="1"
-                  value={formData.population}
-                  onChange={(e) => handleChange('population', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <Home size={16} style={styles.labelIcon} />
-                  Households
-                </label>
-                <input
-                  type="number"
-                  step="1"
-                  value={formData.households}
-                  onChange={(e) => handleChange('households', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>
-                  <DollarSign size={16} style={styles.labelIcon} />
-                  Median Income
-                </label>
-                <input
-                  type="number"
-                  step="0.0001"
-                  value={formData.median_income}
-                  onChange={(e) => handleChange('median_income', e.target.value)}
-                  style={styles.input}
-                />
-              </div>
-
-              <div style={styles.inputGroupFull}>
-                <label style={styles.label}>Ocean Proximity</label>
-                <select
-                  value={formData.ocean_proximity}
-                  onChange={(e) => handleChange('ocean_proximity', e.target.value)}
-                  style={styles.select}
-                >
-                  {oceanProximityOptions.map(option => (
-                    <option key={option} value={option}>{option}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <button
-              onClick={handleSubmit}
-              disabled={loading}
-              style={{
-                ...styles.button,
-                ...(loading ? styles.buttonDisabled : {})
-              }}
-            >
-              {loading ? 'Making Prediction...' : 'Predict Price'}
-            </button>
-          </div>
-
-          {error && (
-            <div style={styles.errorBox}>
-              <p style={styles.errorTitle}>Madone! Error:</p>
-              <p>{error}</p>
-            </div>
-          )}
-
-          {prediction !== null && (
-            <div style={styles.successBox}>
-              <div style={styles.predictionContent}>
-                <p style={styles.predictionLabel}>Predicted House Value:</p>
-                <p style={styles.predictionValue}>
-                  ${(prediction / 100).toLocaleString('en-US', { 
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2 
-                  })}
-                </p>
-                <p style={styles.predictionNote}>
-                  (Model output: {prediction.toFixed(4)} / 100,000)
-                </p>
-              </div>
-            </div>
-          )}
         </div>
       </div>
-    </div>
     </>
   );
 }
@@ -264,7 +268,7 @@ const styles = {
   container: {
     minHeight: '100vh',
     width: '100%',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: '#ffffffff',
     padding: '2rem',
     display: 'flex',
     justifyContent: 'center',
@@ -403,15 +407,4 @@ const styles = {
     fontSize: '0.875rem',
     color: '#6b7280',
   },
-  // noteBox: {
-  //   marginTop: '2rem',
-  //   padding: '1rem',
-  //   backgroundColor: '#f9fafb',
-  //   borderRadius: '8px',
-  // },
-  // noteText: {
-  //   fontSize: '0.875rem',
-  //   color: '#6b7280',
-  //   textAlign: 'center',
-  // },
 };
