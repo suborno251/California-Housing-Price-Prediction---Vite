@@ -31,7 +31,7 @@ export default function HousingPredictor() {
     setError(null);
     
     try {
-      const response = await fetch('https://california-house-price-prediction-038p.onrender.com//predict_single', {
+      const response = await fetch('https://california-house-price-prediction-038p.onrender.com/predict_single', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,15 +78,15 @@ export default function HousingPredictor() {
             sans-serif;
         }
       `}</style>
-      <div style={styles.body}
+      {/* <div style={styles.body}
       >
-        <div style={styles.container}><h1 style={styles.title}>
+        <div style={styles.container}></div>
+      </div> */}
+      <div style={styles.container}>
+        <h1 style={styles.title}>
                 <Home size={40} style={styles.icon} />
                 California Housing Price Predictor
-              </h1></div>
-      </div>
-      <div style={styles.container}>
-        
+              </h1>
         <div style={styles.wrapper}>
           <div style={styles.card}>
             <div style={styles.header}>
